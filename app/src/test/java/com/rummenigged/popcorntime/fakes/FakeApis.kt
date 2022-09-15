@@ -5,7 +5,7 @@ import com.rummenigged.popcorntime.data.model.SeriesRaw
 import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.Response
 
-class SeriesApiFake private constructor(){
+class SeriesApiFake{
 
     companion object {
         fun createSuccessResponseApi(
@@ -23,7 +23,7 @@ class SeriesApiFake private constructor(){
                 Response.error(errorCode, errorMessage.toResponseBody())
         }
 
-        fun createSeriesLIstFakeList(amount: Int): List<SeriesRaw>{
+        fun createSeriesListFakeList(amount: Int): List<SeriesRaw>{
             val seriesList = arrayListOf<SeriesRaw>()
             for (i in 0 until amount){
                 seriesList.add(
