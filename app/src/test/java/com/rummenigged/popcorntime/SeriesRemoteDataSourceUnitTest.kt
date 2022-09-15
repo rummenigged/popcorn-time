@@ -1,8 +1,8 @@
 package com.rummenigged.popcorntime
 
 import com.rummenigged.popcorntime.common.NetworkException
-import com.rummenigged.popcorntime.data.SeriesRemoteDataSource
-import com.rummenigged.popcorntime.data.SeriesRemoteDataSourceImpl
+import com.rummenigged.popcorntime.data.remoteDataSource.SeriesRemoteDataSource
+import com.rummenigged.popcorntime.data.remoteDataSource.SeriesRemoteDataSourceImpl
 import com.rummenigged.popcorntime.fakes.SeriesApiFake
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest

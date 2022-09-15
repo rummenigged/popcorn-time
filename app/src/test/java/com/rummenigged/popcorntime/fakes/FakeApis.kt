@@ -1,7 +1,7 @@
 package com.rummenigged.popcorntime.fakes
 
-import com.rummenigged.popcorntime.data.SeriesApi
-import com.rummenigged.popcorntime.data.SeriesRaw
+import com.rummenigged.popcorntime.data.network.api.SeriesApi
+import com.rummenigged.popcorntime.data.model.SeriesRaw
 import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.Response
 
@@ -10,7 +10,7 @@ class SeriesApiFake private constructor(){
     companion object {
         fun createSuccessResponseApi(
             seriesList: List<SeriesRaw>
-        ): SeriesApi = object : SeriesApi{
+        ): SeriesApi = object : SeriesApi {
             override suspend fun fetchSeriesList(page: Int?): Response<List<SeriesRaw>> =
                 Response.success(seriesList)
         }

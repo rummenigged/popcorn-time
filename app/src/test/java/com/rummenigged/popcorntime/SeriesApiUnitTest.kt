@@ -1,21 +1,15 @@
 package com.rummenigged.popcorntime
 
-import com.rummenigged.popcorntime.data.SeriesApi
+import com.rummenigged.popcorntime.data.network.api.SeriesApi
 import com.rummenigged.popcorntime.utils.getRawResource
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.withContext
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Test
 
-import org.junit.Assert.*
-import org.junit.Before
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
