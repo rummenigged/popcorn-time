@@ -21,7 +21,7 @@ class SeriesRemoteDataSourceUnitTest {
     fun setup(){
         seriesRemoteDataSourceSuccess = SeriesRemoteDataSourceImpl(
             SeriesApiFake.createSuccessResponseApi(
-                SeriesApiFake.createSeriesLIstFakeList(listSize)
+                SeriesApiFake.createSeriesListFakeList(listSize)
             )
         )
 
