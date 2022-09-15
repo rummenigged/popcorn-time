@@ -1,4 +1,4 @@
-package com.rummenigged.popcorntime.data
+package com.rummenigged.popcorntime.data.model
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

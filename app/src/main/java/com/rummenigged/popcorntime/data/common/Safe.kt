@@ -1,4 +1,4 @@
-package com.rummenigged.popcorntime.data
+package com.rummenigged.popcorntime.data.common
 
 interface Safe<DomainType> {
     fun asDomain(): DomainType

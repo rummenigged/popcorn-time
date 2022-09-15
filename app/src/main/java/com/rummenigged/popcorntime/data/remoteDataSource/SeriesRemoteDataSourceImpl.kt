@@ -1,7 +1,10 @@
-package com.rummenigged.popcorntime.data
+package com.rummenigged.popcorntime.data.remoteDataSource
 
 import com.rummenigged.popcorntime.common.NetworkException
 import com.rummenigged.popcorntime.common.Outcome
+import com.rummenigged.popcorntime.data.model.SeriesRaw
+import com.rummenigged.popcorntime.data.network.api.SeriesApi
+import com.rummenigged.popcorntime.data.network.utils.parseResponse
 
 class SeriesRemoteDataSourceImpl(
     private val seriesApi: SeriesApi

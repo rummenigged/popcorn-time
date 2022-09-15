@@ -1,4 +1,4 @@
-package com.rummenigged.popcorntime.data
+package com.rummenigged.popcorntime.data.network.utils
 
 import com.rummenigged.popcorntime.common.ErrorResponse
 import com.rummenigged.popcorntime.common.Outcome
