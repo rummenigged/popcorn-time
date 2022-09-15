@@ -1,5 +1,6 @@
 package com.rummenigged.popcorntime.data.model
 
+import com.rummenigged.popcorntime.data.common.Raw
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -27,7 +28,19 @@ data class SeriesRaw(
     val summary: String?,
     val updated: Long?,
     @Json(name = "_links") val links: Links?
-) {
+): Raw<SeriesSafe> {
+
+    override fun asSafe(): SeriesSafe =
+        SeriesSafe(
+            id = id ?: 0,
+            url = url ?: "",
+            name = name ?: "No Content",
+            image = image?.asSafe() ?: SeriesSafe.Image(
+                medium = "",
+                original = ""
+            )
+        )
+
     data class Schedule(
         val time: String?,
         val days: List<String>?
@@ -66,7 +79,13 @@ data class SeriesRaw(
     data class Image(
         val medium: String?,
         val original: String?
-    )
+    ): Raw<SeriesSafe.Image> {
+        override fun asSafe(): SeriesSafe.Image =
+            SeriesSafe.Image(
+                medium = medium ?: "",
+                original = original ?: ""
+            )
+    }
 
     data class Links(
         val self: Self?,
