@@ -1,25 +1,14 @@
 package com.rummenigged.popcorntime.view.common
 
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import androidx.viewbinding.ViewBindings
-import com.rummenigged.popcorntime.view.utils.ViewBindingsUtils
 
 abstract class BaseAdapter<T>(@NonNull private val values: ArrayList<T> = ArrayList()): RecyclerView.Adapter<BaseAdapter.BaseViewHolder<T>>() {
     protected lateinit var itemClickListener: (View, Int) -> Unit
     protected lateinit var rootRecyclerView: RecyclerView
-
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<T> =
-//
-//        createViewHolder(ViewBindingsUtils.inflate(
-//            LayoutInflater.from(parent.context),
-//            LayoutInflater.from(parent.context).inflate(getItemLayout(), parent, false),
-//            false))
 
     override fun onBindViewHolder(holder: BaseViewHolder<T>, position: Int) {
         if (values.isNotEmpty()) {
