@@ -7,8 +7,10 @@ import com.rummenigged.popcorntime.R
 import com.rummenigged.popcorntime.databinding.FragmentSeriesListBinding
 import com.rummenigged.popcorntime.view.common.BaseFragment
 import com.rummenigged.popcorntime.view.common.viewBinding
+import com.rummenigged.popcorntime.view.utils.gone
 import com.rummenigged.popcorntime.view.utils.observe
 import com.rummenigged.popcorntime.view.utils.showShortToastMessage
+import com.rummenigged.popcorntime.view.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -28,7 +30,17 @@ class SeriesListFragment : BaseFragment(R.layout.fragment_series_list) {
 
     override fun setupObservers() {
         observe(seriesViewModel.seriesUiState){
-            seriesAdapter.swapData(it.seriesList)
+            binding.apply {
+                pbSeriesList.apply { if (it.isLoading) visible() else gone() }
+
+                it.errorMessage?.let {
+                    mtvErrorSeriesList.text = it
+                }
+
+                it.seriesList?.let { seriesList ->
+                    seriesAdapter.swapData(seriesList)
+                }
+            }
         }
     }
 
@@ -36,6 +48,7 @@ class SeriesListFragment : BaseFragment(R.layout.fragment_series_list) {
         super.onResume()
         seriesViewModel.getSeriesList()
     }
+
     private fun setupRecyclerView(){
         binding.rvSeries.apply {
             itemAnimator = DefaultItemAnimator()
