@@ -18,7 +18,9 @@ class SeriesRemoteDataSourceUnitTest {
 
     private val listSize = 7
     private val seasonListSize = 3
+    private val episodesListSize = 10
     private val seriesId = 1
+    private val seasonId = 20
 
     @Before
     fun setup(){
@@ -26,7 +28,8 @@ class SeriesRemoteDataSourceUnitTest {
             SeriesApiFake.createSuccessResponseApi(
                 SeriesRemoteDataSourceFake.createSeriesListFakeList(listSize),
                 SeriesRemoteDataSourceFake.getMockSeriesDetails(seriesId),
-                SeriesRemoteDataSourceFake.createSeriesSeasonListFakeList(seasonListSize)
+                SeriesRemoteDataSourceFake.createSeriesSeasonListFakeList(seasonListSize),
+                SeriesRemoteDataSourceFake.createSeasonEpisodesListFakeList(episodesListSize)
             )
         )
 
@@ -110,6 +113,13 @@ class SeriesRemoteDataSourceUnitTest {
     fun `assert fetch series seasons success`() = runTest {
         seriesRemoteDataSourceSuccess.fetchSeriesSeasons(seriesId).also { result ->
             assert(result.size == seasonListSize)
+        }
+    }
+
+    @Test
+    fun `assert fetch season episodes success`() = runTest {
+        seriesRemoteDataSourceSuccess.fetchSeasonEpisodes(seasonId).also { result ->
+            assert(result.size == episodesListSize)
         }
     }
 }
