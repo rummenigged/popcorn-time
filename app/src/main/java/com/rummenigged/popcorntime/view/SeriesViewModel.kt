@@ -30,7 +30,6 @@ class SeriesViewModel @Inject constructor(
         fireLoadingState(true)
         getSeriesListJob = viewModelScope.launch {
             runCatching {
-                delay(3000)
                 val seriesList = seriesRepository.getSeriesList(currentPage).map { series ->
                     SeriesView(
                         id = series.id,
