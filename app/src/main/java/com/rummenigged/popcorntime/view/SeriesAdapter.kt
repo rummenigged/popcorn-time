@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import com.rummenigged.popcorntime.R
 import com.rummenigged.popcorntime.databinding.ItemSeriesBinding
 import com.rummenigged.popcorntime.view.common.DiffUtilBaseAdapter
+import com.rummenigged.popcorntime.view.utils.load
 import javax.inject.Inject
 
 class SeriesAdapter @Inject constructor()
@@ -30,6 +31,7 @@ class SeriesAdapter @Inject constructor()
     ):BaseViewHolder<SeriesView>(viewBinding) {
         override fun bind(item: SeriesView) {
             viewBinding.apply {
+                ivSeriesBanner.load(item.bannerUrl)
                 mtvSeriesName.text = item.name
             }
         }

@@ -8,11 +8,13 @@ buildscript {
     def hilt_version = "2.42"
     def kotlin_gradle_version = "1.7.10"
     def gradle_version = "7.2.2"
+    def safe_args_version = "2.5.2"
 
     dependencies {
         classpath("com.android.tools.build:gradle:$gradle_version")
         classpath("com.google.dagger:hilt-android-gradle-plugin:$hilt_version")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_gradle_version")
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$safe_args_version")
     }
 }
 

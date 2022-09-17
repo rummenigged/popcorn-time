@@ -1,15 +1,14 @@
-package com.rummenigged.popcorntime.domain
+package com.rummenigged.popcorntime.view
 
-data class Series(
+data class SeriesDetailsView(
     val id: Int,
-    val url: String,
     val name: String,
-    val imageUrl: String,
     val posterUrl: String,
     val schedule: Schedule,
     val summary: String,
     val genres: List<String>
-){
+) {
+
     data class Schedule(
         val time: String,
         val days: List<String>

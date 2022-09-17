@@ -8,8 +8,8 @@ import com.rummenigged.popcorntime.databinding.FragmentSeriesListBinding
 import com.rummenigged.popcorntime.view.common.BaseFragment
 import com.rummenigged.popcorntime.view.common.viewBinding
 import com.rummenigged.popcorntime.view.utils.gone
+import com.rummenigged.popcorntime.view.utils.navigateTo
 import com.rummenigged.popcorntime.view.utils.observe
-import com.rummenigged.popcorntime.view.utils.showShortToastMessage
 import com.rummenigged.popcorntime.view.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -54,7 +54,9 @@ class SeriesListFragment : BaseFragment(R.layout.fragment_series_list) {
             itemAnimator = DefaultItemAnimator()
             adapter = seriesAdapter.apply {
                 subscribeToItemSelection { _, position ->
-                    showShortToastMessage("Position $position taped")
+                    getItem(position).also { item ->
+                        navigateTo(SeriesListFragmentDirections.toSeriesDetailsFragment(item.id))
+                    }
                 }
             }
         }

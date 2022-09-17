@@ -1,9 +1,10 @@
-package com.rummenigged.popcorntime.RemoteDataSourceUnitTest
+package com.rummenigged.popcorntime.remoteDataSourceUnitTest
 
 import com.rummenigged.popcorntime.common.NetworkException
 import com.rummenigged.popcorntime.data.remoteDataSource.SeriesRemoteDataSource
 import com.rummenigged.popcorntime.data.remoteDataSource.SeriesRemoteDataSourceImpl
 import com.rummenigged.popcorntime.fakes.SeriesApiFake
+import com.rummenigged.popcorntime.fakes.SeriesRemoteDataSourceFake
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
@@ -16,12 +17,19 @@ class SeriesRemoteDataSourceUnitTest {
     private lateinit var seriesRemoteDataSourceError: SeriesRemoteDataSource
 
     private val listSize = 7
+    private val seasonListSize = 3
+    private val episodesListSize = 10
+    private val seriesId = 1
+    private val seasonId = 20
 
     @Before
     fun setup(){
         seriesRemoteDataSourceSuccess = SeriesRemoteDataSourceImpl(
             SeriesApiFake.createSuccessResponseApi(
-                SeriesApiFake.createSeriesListFakeList(listSize)
+                SeriesRemoteDataSourceFake.createSeriesListFakeList(listSize),
+                SeriesRemoteDataSourceFake.getMockSeriesDetails(seriesId),
+                SeriesRemoteDataSourceFake.createSeriesSeasonListFakeList(seasonListSize),
+                SeriesRemoteDataSourceFake.createSeasonEpisodesListFakeList(episodesListSize)
             )
         )
 
@@ -91,6 +99,27 @@ class SeriesRemoteDataSourceUnitTest {
             serverError.fetchSeriesList(1)
         }catch (e: NetworkException){
             assert(e is NetworkException.InternalError)
+        }
+    }
+
+    @Test
+    fun `assert fetch series details success`() = runTest {
+        seriesRemoteDataSourceSuccess.fetchSeriesDetails(seriesId).also { result ->
+            assert(result.id == seriesId)
+        }
+    }
+
+    @Test
+    fun `assert fetch series seasons success`() = runTest {
+        seriesRemoteDataSourceSuccess.fetchSeriesSeasons(seriesId).also { result ->
+            assert(result.size == seasonListSize)
+        }
+    }
+
+    @Test
+    fun `assert fetch season episodes success`() = runTest {
+        seriesRemoteDataSourceSuccess.fetchSeasonEpisodes(seasonId).also { result ->
+            assert(result.size == episodesListSize)
         }
     }
 }

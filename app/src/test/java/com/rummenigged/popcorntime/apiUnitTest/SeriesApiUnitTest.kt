@@ -21,6 +21,9 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 @ExperimentalCoroutinesApi
 class SeriesApiUnitTest {
 
+    private val seriesId = 1
+    private val seasonId = 2
+
     @Test
     fun `assert fetch series list success`() = runTest {
         val mockServer = MockWebServer()
@@ -72,5 +75,83 @@ class SeriesApiUnitTest {
         assert(request.method == "GET")
         assert(request.path == "/shows?page=$page")
         assert(result.body()?.size == 10)
+    }
+
+    @Test
+    fun `assert fetch series details success`() = runTest {
+        val mockServer = MockWebServer()
+        mockServer.start()
+
+        mockServer.enqueue(MockResponse().setBody(getRawResource("series_details.json")))
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(mockServer.url(""))
+            .addConverterFactory(MoshiConverterFactory.create(
+                Moshi.Builder()
+                    .add(KotlinJsonAdapterFactory())
+                    .build()))
+            .build()
+
+        val service = retrofit.create(SeriesApi::class.java)
+        val result = service.fetchSeriesDetail(seriesId)
+
+        val request  = mockServer.takeRequest()
+        mockServer.shutdown()
+
+        assert(request.method == "GET")
+        assert(request.path == "/shows/$seriesId")
+        assert(result.body()?.id == seriesId)
+    }
+
+    @Test
+    fun `assert fetch series season list success`() = runTest {
+        val mockServer = MockWebServer()
+        mockServer.start()
+
+        mockServer.enqueue(MockResponse().setBody(getRawResource("season_list.json")))
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(mockServer.url(""))
+            .addConverterFactory(MoshiConverterFactory.create(
+                Moshi.Builder()
+                    .add(KotlinJsonAdapterFactory())
+                    .build()))
+            .build()
+
+        val service = retrofit.create(SeriesApi::class.java)
+        val result = service.fetchSeriesSeason(seriesId)
+
+        val request  = mockServer.takeRequest()
+        mockServer.shutdown()
+
+        assert(request.method == "GET")
+        assert(request.path == "/shows/$seriesId/seasons")
+        assert(result.body()?.size == 3)
+    }
+
+    @Test
+    fun `assert fetch season episodes list success`() = runTest {
+        val mockServer = MockWebServer()
+        mockServer.start()
+
+        mockServer.enqueue(MockResponse().setBody(getRawResource("episodes_list.json")))
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(mockServer.url(""))
+            .addConverterFactory(MoshiConverterFactory.create(
+                Moshi.Builder()
+                    .add(KotlinJsonAdapterFactory())
+                    .build()))
+            .build()
+
+        val service = retrofit.create(SeriesApi::class.java)
+        val result = service.fetchSeasonEpisodes(seasonId)
+
+        val request  = mockServer.takeRequest()
+        mockServer.shutdown()
+
+        assert(request.method == "GET")
+        assert(request.path == "/seasons/$seasonId/episodes")
+        assert(result.body()?.size == 13)
     }
 }

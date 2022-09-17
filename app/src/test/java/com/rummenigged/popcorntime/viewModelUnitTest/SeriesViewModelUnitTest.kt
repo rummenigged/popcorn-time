@@ -1,6 +1,7 @@
 package com.rummenigged.popcorntime.viewModelUnitTest
 
 import app.cash.turbine.test
+import com.rummenigged.popcorntime.fakes.SeriesRemoteDataSourceFake
 import com.rummenigged.popcorntime.fakes.SeriesRepositoryFake
 import com.rummenigged.popcorntime.view.SeriesViewModel
 import kotlinx.coroutines.Dispatchers
@@ -22,6 +23,7 @@ class SeriesViewModelUnitTest {
     private val coroutineDispatcher = StandardTestDispatcher()
 
     private val listSize = 4
+    private val seriesId = 8
     private val errorCode = 404
     private val errorMessage = "Resource Not Found"
 
@@ -30,7 +32,10 @@ class SeriesViewModelUnitTest {
         Dispatchers.setMain(coroutineDispatcher)
         seriesViewModelSuccess = SeriesViewModel(
             SeriesRepositoryFake(
-                seriesList = SeriesRepositoryFake.createSeriesListFakeList(listSize)
+                seriesList = SeriesRepositoryFake.createSeriesListFakeList(listSize),
+                seriesDetail = SeriesRemoteDataSourceFake.getMockSeriesDetails(seriesId)
+                    .asSafe()
+                    .asDomain()
             )
         )
 
