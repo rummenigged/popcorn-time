@@ -6,8 +6,10 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.13177083333333334" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.3588652482269504" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.24074074074074073" />
+        <entry key="app/src/main/res/layout/fragment_series_details.xml" value="0.20572916666666666" />
         <entry key="app/src/main/res/layout/fragment_series_list.xml" value="0.2359375" />
-        <entry key="app/src/main/res/layout/item_series.xml" value="0.18055555555555555" />
+        <entry key="app/src/main/res/layout/item_series.xml" value="0.1111111111111111" />
+        <entry key="app/src/main/res/layout/item_series_gender.xml" value="0.3671875" />
       </map>
     </option>
   </component>
