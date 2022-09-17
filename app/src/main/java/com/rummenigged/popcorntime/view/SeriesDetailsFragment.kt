@@ -6,6 +6,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.DefaultItemAnimator
 import com.google.android.material.chip.Chip
 import com.rummenigged.popcorntime.R
 import com.rummenigged.popcorntime.databinding.FragmentSeriesDetailsBinding
@@ -13,6 +14,7 @@ import com.rummenigged.popcorntime.view.common.BaseFragment
 import com.rummenigged.popcorntime.view.common.viewBinding
 import com.rummenigged.popcorntime.view.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SeriesDetailsFragment : BaseFragment(R.layout.fragment_series_details) {
@@ -21,25 +23,22 @@ class SeriesDetailsFragment : BaseFragment(R.layout.fragment_series_details) {
 
     private val seriesDetailsViewModel: SeriesDetailsViewModel by viewModels()
 
+    @Inject
+    lateinit var episodesAdapter: EpisodesAdapter
+
     private val args: SeriesDetailsFragmentArgs by navArgs()
+
+    private var currenEpisodesList: List<SeasonView> = emptyList()
 
     override fun setupView(savedInstanceState: Bundle?) {
         super.setupView(savedInstanceState)
-        binding.spSeriesSeason.onItemSelectedListener = object :
-            AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                showLongToastMessage("$p2")
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {}
-
-        }
+        setupRecyclerView()
+        setupListeners()
     }
 
     override fun setupObservers() {
         observe(seriesDetailsViewModel.seriesDetailsUiState){ seriesDetails ->
             binding.apply {
-                pbSeriesDetailsList.apply { if (seriesDetails.isLoading) visible() else gone() }
 
                 seriesDetails.seriesDetails?.run{
                     acivSeriesDetailBanner.load(posterUrl)
@@ -50,9 +49,59 @@ class SeriesDetailsFragment : BaseFragment(R.layout.fragment_series_details) {
                 }
 
                 seriesDetails.seasonList?.let {
+                    currenEpisodesList = it
                     updateSeasonList( it.map { season -> season.name })
                 }
+
+                seriesDetails.episodesList?.also {
+                    episodesAdapter.swapData(it)
+                }
+
+                seriesDetails.errorMessage?.also {
+                    showLongToastMessage(it)
+                }
+
+                seriesDetails.errorEpisodeList?.also {
+                    showLongToastMessage(it)
+                }
+
+                seriesDetails.isLoading.also { isLoading ->
+                    if (isLoading){
+                        pbSeriesDetailsList.visible()
+                        spSeriesSeason.gone()
+                    }else{
+                        pbSeriesDetailsList.gone()
+                        spSeriesSeason.visible()
+                    }
+                }
+
+                seriesDetails.isLoadingEpisodes.also { isLoading ->
+                    if (isLoading){
+                        pbEpisodesDetailsList.visible()
+                        rvEpisodes.gone()
+                    }else{
+                        pbEpisodesDetailsList.gone()
+                        rvEpisodes.visible()
+                    }
+                }
             }
+        }
+    }
+
+    private fun setupListeners(){
+        binding.spSeriesSeason.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+                try{
+                    currenEpisodesList[position].also {
+                        seriesDetailsViewModel.getEpisodes(it.id)
+                    }
+                }catch (e: IndexOutOfBoundsException){}
+
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+
         }
     }
 
@@ -87,6 +136,19 @@ class SeriesDetailsFragment : BaseFragment(R.layout.fragment_series_details) {
             prefix = "Exhibited ",
             postfix = " at ${schedule.time}"
         )
+
+    private fun setupRecyclerView(){
+        binding.rvEpisodes.apply {
+            itemAnimator = DefaultItemAnimator()
+            adapter = episodesAdapter.apply {
+                subscribeToItemSelection { _, position ->
+                    getItem(position).also { item ->
+//                        navigateTo(SeriesListFragmentDirections.toSeriesDetailsFragment(item.id))
+                    }
+                }
+            }
+        }
+    }
 
     override fun onResume() {
         super.onResume()
