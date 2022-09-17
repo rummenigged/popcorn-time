@@ -1,6 +1,7 @@
 package com.rummenigged.popcorntime.data.model
 
 import com.rummenigged.popcorntime.data.common.Raw
+import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
@@ -10,7 +11,7 @@ data class EpisodeRaw(
     val name: String?,
     val season: Int?,
     val number: Int?,
-    val airDate: String?,
+    @Json(name = "airdate") val airDate: String,
     val runtime: Int?,
     val rating: Rating?,
     val image: Image?,
