@@ -1,6 +1,9 @@
 package com.rummenigged.popcorntime.view
 
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.chip.Chip
@@ -22,6 +25,15 @@ class SeriesDetailsFragment : BaseFragment(R.layout.fragment_series_details) {
 
     override fun setupView(savedInstanceState: Bundle?) {
         super.setupView(savedInstanceState)
+        binding.spSeriesSeason.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                showLongToastMessage("$p2")
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+
+        }
     }
 
     override fun setupObservers() {
@@ -36,7 +48,23 @@ class SeriesDetailsFragment : BaseFragment(R.layout.fragment_series_details) {
                     updateGenresList(genres)
                     mtvSeriesDetailSchedule.text = buildScheduleList(schedule)
                 }
+
+                seriesDetails.seasonList?.let {
+                    updateSeasonList( it.map { season -> season.name })
+                }
             }
+        }
+    }
+
+    private fun updateSeasonList(seasons: List<String>){
+        ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            seasons
+        ).apply {
+            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        }.also {
+            binding.spSeriesSeason.adapter = it
         }
     }
 
@@ -63,5 +91,6 @@ class SeriesDetailsFragment : BaseFragment(R.layout.fragment_series_details) {
     override fun onResume() {
         super.onResume()
         seriesDetailsViewModel.getSeriesDetails(args.seriesId)
+        seriesDetailsViewModel.getSeriesSeason(args.seriesId)
     }
 }
