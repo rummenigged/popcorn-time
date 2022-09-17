@@ -1,4 +1,4 @@
-package com.rummenigged.popcorntime
+package com.rummenigged.popcorntime.RemoteDataSourceUnitTest
 
 import com.rummenigged.popcorntime.common.NetworkException
 import com.rummenigged.popcorntime.data.remoteDataSource.SeriesRemoteDataSource

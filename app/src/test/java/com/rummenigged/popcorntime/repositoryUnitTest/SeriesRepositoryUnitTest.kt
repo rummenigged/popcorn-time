@@ -1,4 +1,4 @@
-package com.rummenigged.popcorntime
+package com.rummenigged.popcorntime.repositoryUnitTest
 
 import com.rummenigged.popcorntime.data.repository.SeriesRepositoryImpl
 import com.rummenigged.popcorntime.domain.SeriesRepository
