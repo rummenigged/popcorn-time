@@ -73,8 +73,8 @@ class SeriesRemoteDataSourceFake(
                     imdb = "tt221112$seriesId"
                 ),
                 image = SeriesRaw.Image(
-                    medium = "",
-                    original = ""
+                    medium = "url_test",
+                    original = "url_test"
                 ),
                 summary = "<p><b>The Mindy Project</b> is a single-camera comedy series which follows a skilled OB/GYN navigating the tricky waters of both her personal and professional life.</p>,",
                 updated = 1633454845,
