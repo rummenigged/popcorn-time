@@ -35,10 +35,16 @@ data class SeriesRaw(
             id = id ?: 0,
             url = url ?: "",
             name = name ?: "No Content",
+            summary = summary ?: "No Content",
             image = image?.asSafe() ?: SeriesSafe.Image(
                 medium = "",
                 original = ""
-            )
+            ),
+            schedule = SeriesSafe.Schedule(
+                time = schedule?.time ?: "00:00",
+                days = schedule?.days ?: emptyList()
+            ),
+            genres = genres ?: emptyList()
         )
 
     data class Schedule(
