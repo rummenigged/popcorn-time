@@ -1,4 +1,4 @@
-package com.rummenigged.popcorntime
+package com.rummenigged.popcorntime.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.rummenigged.popcorntime.R
 import com.rummenigged.popcorntime.databinding.FragmentSecondBinding
 
 /**

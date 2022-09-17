@@ -5,8 +5,9 @@ import com.rummenigged.popcorntime.common.Outcome
 import com.rummenigged.popcorntime.data.model.SeriesRaw
 import com.rummenigged.popcorntime.data.network.api.SeriesApi
 import com.rummenigged.popcorntime.data.network.utils.parseResponse
+import javax.inject.Inject
 
-class SeriesRemoteDataSourceImpl(
+class SeriesRemoteDataSourceImpl @Inject constructor(
     private val seriesApi: SeriesApi
 ): SeriesRemoteDataSource {
     override suspend fun fetchSeriesList(page: Int?): List<SeriesRaw> =

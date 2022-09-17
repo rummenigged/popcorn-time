@@ -1,4 +1,4 @@
-package com.rummenigged.popcorntime
+package com.rummenigged.popcorntime.apiUnitTest
 
 import com.rummenigged.popcorntime.data.network.api.SeriesApi
 import com.rummenigged.popcorntime.utils.getRawResource
