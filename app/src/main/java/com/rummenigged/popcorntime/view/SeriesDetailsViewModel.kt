@@ -59,7 +59,7 @@ class SeriesDetailsViewModel @Inject constructor(
 
     fun getEpisodes(seasonId: Int){
         getEpisodesJob?.cancel()
-        fireLoadingState(true)
+        fireLoadingEpisodesState(true)
         getEpisodesJob = viewModelScope.launch {
             runCatching {
                 val episodesList = seriesRepository.getEpisodes(seasonId).map {
@@ -68,19 +68,19 @@ class SeriesDetailsViewModel @Inject constructor(
                         number = it.number,
                         name = "${it.number}.${it.name}",
                         imageUrl = it.image.medium,
-                        runtime = it.runtime,
+                        runtime = "${it.runtime}m",
                         summary = it.summary
                     )
                 }
 
                 _seriesDetailsUiState.update {
                     it.copy(
-                        isLoading = false,
+                        isLoadingEpisodes = false,
                         episodesList = episodesList
                     )
                 }
             }.recoverCatching {
-                fireErrorState(true, it.message ?: "Unknown Error")
+                fireErrorEpisodeState(true, it.message ?: "Unknown Error")
             }
         }
     }
@@ -120,12 +120,39 @@ class SeriesDetailsViewModel @Inject constructor(
         }
     }
 
+    private fun fireLoadingEpisodesState(isLoading: Boolean){
+        _seriesDetailsUiState.update {
+            it.copy(
+                isLoadingEpisodes = isLoading,
+                seriesDetails = null,
+                seasonList = null,
+                episodesList = null)
+        }
+    }
+
     private fun fireErrorState(hasError: Boolean, errorMessage: String){
         if (hasError){
             _seriesDetailsUiState.update {
                 it.copy(
                     isLoading = false,
                     errorMessage = errorMessage,
+                    seriesDetails = null,
+                    seasonList = null,
+                    episodesList = null)
+            }
+        }else{
+            _seriesDetailsUiState.update {
+                it.copy(errorMessage = "")
+            }
+        }
+    }
+
+    private fun fireErrorEpisodeState(hasError: Boolean, errorMessage: String){
+        if (hasError){
+            _seriesDetailsUiState.update {
+                it.copy(
+                    isLoading = false,
+                    errorEpisodeList = errorMessage,
                     seriesDetails = null,
                     seasonList = null,
                     episodesList = null)
