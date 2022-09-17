@@ -7,6 +7,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import retrofit2.http.Url
 
 interface SeriesApi {
 
@@ -29,4 +30,9 @@ interface SeriesApi {
     suspend fun fetchSeasonEpisodes(
         @Path("season_id") seasonId: Int
     ): Response<List<EpisodeRaw>>
+
+    @GET
+    suspend fun fetchEpisodeDetails(
+        @Url url: String
+    ): Response<EpisodeRaw>
 }
