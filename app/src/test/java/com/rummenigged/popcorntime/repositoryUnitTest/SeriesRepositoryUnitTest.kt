@@ -14,6 +14,7 @@ class SeriesRepositoryUnitTest {
     private lateinit var seriesRepository: SeriesRepository
 
     private val listSize = 4
+    private val seasonListSize = 6
     private val seriesId = 7
 
     @Before
@@ -21,7 +22,8 @@ class SeriesRepositoryUnitTest {
         seriesRepository = SeriesRepositoryImpl(
             seriesRemoteDataSource = SeriesRemoteDataSourceFake(
                 seriesList = SeriesRemoteDataSourceFake.createSeriesListFakeList(listSize),
-                SeriesRemoteDataSourceFake.getMockSeriesDetails(seriesId)
+                seriesDetail = SeriesRemoteDataSourceFake.getMockSeriesDetails(seriesId),
+                seasonList = SeriesRemoteDataSourceFake.createSeriesSeasonListFakeList(seasonListSize)
             )
         )
     }
@@ -37,6 +39,13 @@ class SeriesRepositoryUnitTest {
     fun `assert get series details success `() = runTest {
         seriesRepository.getSeriesDetail(seriesId).also { result ->
             assert(result.id == seriesId)
+        }
+    }
+
+    @Test
+    fun `assert get series season success`() = runTest {
+        seriesRepository.getSeriesSeasons(seriesId).also { result ->
+            assert(result.size == seasonListSize)
         }
     }
 }
