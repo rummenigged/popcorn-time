@@ -22,6 +22,8 @@ class SeriesDetailsViewModel @Inject constructor(
 
     private var getSeriesDetailsJob: Job? = null
 
+    private var getSeriesSeasonJob: Job? = null
+
     fun getSeriesDetails(seriesId: Int){
         getSeriesDetailsJob?.cancel()
         fireLoadingState(true)
@@ -53,11 +55,37 @@ class SeriesDetailsViewModel @Inject constructor(
         }
     }
 
+    fun getSeriesSeason(seriesId: Int){
+        getSeriesSeasonJob?.cancel()
+        fireLoadingState(true)
+        getSeriesSeasonJob = viewModelScope.launch {
+            runCatching {
+                val seasonList = seriesRepository.getSeriesSeasons(seriesId).map {
+                    SeasonView(
+                        id = it.id,
+                        number = it.number,
+                        name = "Season ${it.number}"
+                    )
+                }
+
+                _seriesDetailsUiState.update {
+                    it.copy(
+                        isLoading = false,
+                        seasonList = seasonList
+                    )
+                }
+            }.recoverCatching {
+                fireErrorState(true, it.message ?: "Unknown Error")
+            }
+        }
+    }
+
     private fun fireLoadingState(isLoading: Boolean){
         _seriesDetailsUiState.update {
             it.copy(
                 isLoading = isLoading,
-                seriesDetails = null)
+                seriesDetails = null,
+                seasonList = null,)
         }
     }
 
@@ -67,7 +95,8 @@ class SeriesDetailsViewModel @Inject constructor(
                 it.copy(
                     isLoading = false,
                     errorMessage = errorMessage,
-                    seriesDetails = null)
+                    seriesDetails = null,
+                    seasonList = null)
             }
         }else{
             _seriesDetailsUiState.update {
