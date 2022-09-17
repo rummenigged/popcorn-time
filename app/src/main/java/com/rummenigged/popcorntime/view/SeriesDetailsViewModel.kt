@@ -24,6 +24,8 @@ class SeriesDetailsViewModel @Inject constructor(
 
     private var getSeriesSeasonJob: Job? = null
 
+    private var getEpisodesJob: Job? = null
+
     fun getSeriesDetails(seriesId: Int){
         getSeriesDetailsJob?.cancel()
         fireLoadingState(true)
@@ -47,6 +49,34 @@ class SeriesDetailsViewModel @Inject constructor(
                     it.copy(
                         isLoading = false,
                         seriesDetails = seriesDetails
+                    )
+                }
+            }.recoverCatching {
+                fireErrorState(true, it.message ?: "Unknown Error")
+            }
+        }
+    }
+
+    fun getEpisodes(seasonId: Int){
+        getEpisodesJob?.cancel()
+        fireLoadingState(true)
+        getEpisodesJob = viewModelScope.launch {
+            runCatching {
+                val episodesList = seriesRepository.getEpisodes(seasonId).map {
+                    EpisodeView(
+                        id = it.id,
+                        number = it.number,
+                        name = "${it.number}.${it.name}",
+                        imageUrl = it.image.medium,
+                        runtime = it.runtime,
+                        summary = it.summary
+                    )
+                }
+
+                _seriesDetailsUiState.update {
+                    it.copy(
+                        isLoading = false,
+                        episodesList = episodesList
                     )
                 }
             }.recoverCatching {
@@ -85,7 +115,8 @@ class SeriesDetailsViewModel @Inject constructor(
             it.copy(
                 isLoading = isLoading,
                 seriesDetails = null,
-                seasonList = null,)
+                seasonList = null,
+                episodesList = null)
         }
     }
 
@@ -96,7 +127,8 @@ class SeriesDetailsViewModel @Inject constructor(
                     isLoading = false,
                     errorMessage = errorMessage,
                     seriesDetails = null,
-                    seasonList = null)
+                    seasonList = null,
+                    episodesList = null)
             }
         }else{
             _seriesDetailsUiState.update {
