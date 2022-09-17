@@ -1,6 +1,7 @@
 package com.rummenigged.popcorntime.data.repository
 
 import com.rummenigged.popcorntime.data.remoteDataSource.SeriesRemoteDataSource
+import com.rummenigged.popcorntime.domain.Episode
 import com.rummenigged.popcorntime.domain.Season
 import com.rummenigged.popcorntime.domain.Series
 import com.rummenigged.popcorntime.domain.SeriesRepository
@@ -23,5 +24,10 @@ class SeriesRepositoryImpl @Inject constructor(
         seriesRemoteDataSource.fetchSeriesSeasons(seriesId).map {
             it.asSafe()
                 .asDomain()
+        }
+
+    override suspend fun getEpisodes(seasonId: Int): List<Episode> =
+        seriesRemoteDataSource.fetchSeasonEpisodes(seasonId).map {
+            it.asSafe().asDomain()
         }
 }
