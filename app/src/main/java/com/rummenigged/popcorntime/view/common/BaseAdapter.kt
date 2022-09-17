@@ -2,6 +2,7 @@ package com.rummenigged.popcorntime.view.common
 
 import android.util.Log
 import android.view.View
+import androidx.annotation.IntRange
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
@@ -40,7 +41,7 @@ abstract class BaseAdapter<T>(@NonNull private val values: ArrayList<T> = ArrayL
     }
 
     @Throws(IndexOutOfBoundsException::class)
-    fun getItem(position: Int): T = values[position]
+    fun getItem(@IntRange(from = 0) position: Int): T = values[position]
 
     override fun getItemCount(): Int = if (values.isNullOrEmpty()) 0 else values.size
 
