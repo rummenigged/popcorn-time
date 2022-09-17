@@ -5,6 +5,6 @@ data class EpisodeView(
     val number: Int,
     val name: String,
     val imageUrl: String,
-    val runtime: Int,
+    val runtime: String,
     val summary: String
 )
