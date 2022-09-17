@@ -1,11 +1,13 @@
 package com.rummenigged.popcorntime.fakes
 
+import com.rummenigged.popcorntime.data.model.SeasonRaw
 import com.rummenigged.popcorntime.data.model.SeriesRaw
 import com.rummenigged.popcorntime.data.remoteDataSource.SeriesRemoteDataSource
 
 class SeriesRemoteDataSourceFake(
     private val seriesList: List<SeriesRaw>?,
-    private val seriesDetail: SeriesRaw? = null
+    private val seriesDetail: SeriesRaw? = null,
+    private val seasonList: List<SeasonRaw>? = null,
 ): SeriesRemoteDataSource{
 
     override suspend fun fetchSeriesList(page: Int): List<SeriesRaw> =
@@ -13,6 +15,9 @@ class SeriesRemoteDataSourceFake(
 
     override suspend fun fetchSeriesDetails(seriesId: Int): SeriesRaw =
         seriesDetail ?: getMockSeriesDetails(0)
+
+    override suspend fun fetchSeriesSeasons(seriesId: Int): List<SeasonRaw> =
+        seasonList ?: createSeriesSeasonListFakeList(0)
 
     companion object {
 
@@ -151,6 +156,23 @@ class SeriesRemoteDataSourceFake(
                          href = "https://api.tvmaze.com/episodes/1334456"
                      )
                  ),
+                    )
+                )
+            }
+            return seriesList
+        }
+
+        fun createSeriesSeasonListFakeList(amount: Int): List<SeasonRaw> {
+            val seriesList = arrayListOf<SeasonRaw>()
+            for (i in 0 until amount) {
+                seriesList.add(
+                    SeasonRaw(
+                        id = i,
+                        url = "url_$i",
+                        number = 1,
+                        episodeOrder = i,
+                        premieredDate = "",
+                        endDate = ""
                     )
                 )
             }
