@@ -13,7 +13,8 @@ data class EpisodeSafe(
     val runtime: Int,
     val rating: Rating,
     val image: Image,
-    val summary: String
+    val summary: String,
+    val link: String
 ): Safe<Episode> {
     data class Rating(
         val average: Double
@@ -40,6 +41,7 @@ data class EpisodeSafe(
                 original = image.original
             ),
             summary = summary,
+            link = link
         )
 
 }

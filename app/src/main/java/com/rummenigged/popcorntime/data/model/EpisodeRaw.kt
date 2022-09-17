@@ -16,6 +16,7 @@ data class EpisodeRaw(
     val rating: Rating?,
     val image: Image?,
     val summary: String?,
+    @Json(name = "_links") val link: Link?
 ): Raw<EpisodeSafe> {
     data class Rating(
         val average: Double?
@@ -25,6 +26,14 @@ data class EpisodeRaw(
         val medium: String?,
         val original: String?
     )
+
+    data class Link(
+        val self: Self
+    ){
+        data class Self(
+            val href: String?
+        )
+    }
     override fun asSafe(): EpisodeSafe =
         EpisodeSafe(
             id = id ?: 0,
@@ -42,6 +51,7 @@ data class EpisodeRaw(
                 original = image?.original ?: ""
             ),
             summary = summary ?: "",
+            link = link?.self?.href ?: "",
         )
 
 }

@@ -10,7 +10,8 @@ data class Episode(
     val runtime: Int,
     val rating: Rating,
     val image: Image,
-    val summary: String
+    val summary: String,
+    val link: String
 ){
     data class Rating(
         val average: Double
