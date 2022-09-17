@@ -1,5 +1,6 @@
 package com.rummenigged.popcorntime.fakes
 
+import com.rummenigged.popcorntime.data.model.EpisodeRaw
 import com.rummenigged.popcorntime.data.model.SeasonRaw
 import com.rummenigged.popcorntime.data.model.SeriesRaw
 import com.rummenigged.popcorntime.data.remoteDataSource.SeriesRemoteDataSource
@@ -8,6 +9,7 @@ class SeriesRemoteDataSourceFake(
     private val seriesList: List<SeriesRaw>?,
     private val seriesDetail: SeriesRaw? = null,
     private val seasonList: List<SeasonRaw>? = null,
+    private val episodesList: List<EpisodeRaw>? = null,
 ): SeriesRemoteDataSource{
 
     override suspend fun fetchSeriesList(page: Int): List<SeriesRaw> =
@@ -18,6 +20,9 @@ class SeriesRemoteDataSourceFake(
 
     override suspend fun fetchSeriesSeasons(seriesId: Int): List<SeasonRaw> =
         seasonList ?: createSeriesSeasonListFakeList(0)
+
+    override suspend fun fetchSeasonEpisodes(seasonId: Int): List<EpisodeRaw> =
+        episodesList ?: createSeasonEpisodesListFakeList(0)
 
     companion object {
 
@@ -173,6 +178,30 @@ class SeriesRemoteDataSourceFake(
                         episodeOrder = i,
                         premieredDate = "",
                         endDate = ""
+                    )
+                )
+            }
+            return seriesList
+        }
+
+        fun createSeasonEpisodesListFakeList(amount: Int): List<EpisodeRaw> {
+            val seriesList = arrayListOf<EpisodeRaw>()
+            for (i in 0 until amount) {
+                seriesList.add(
+                    EpisodeRaw(
+                        id = i,
+                        url = "url_$i",
+                        name = "Name $i",
+                        season = i,
+                        number = 1,
+                        airDate = "",
+                        runtime = i,
+                        rating = EpisodeRaw.Rating(i.toDouble()),
+                        image = EpisodeRaw.Image(
+                            medium = "",
+                            original = ""
+                        ),
+                        summary = "Summary $i"
                     )
                 )
             }
