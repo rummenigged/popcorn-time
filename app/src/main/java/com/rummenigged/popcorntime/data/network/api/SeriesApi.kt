@@ -1,5 +1,6 @@
 package com.rummenigged.popcorntime.data.network.api
 
+import com.rummenigged.popcorntime.data.model.SeasonRaw
 import com.rummenigged.popcorntime.data.model.SeriesRaw
 import retrofit2.Response
 import retrofit2.http.GET
@@ -17,4 +18,9 @@ interface SeriesApi {
     suspend fun fetchSeriesDetail(
         @Path("series_id") seriesId: Int
     ): Response<SeriesRaw>
+
+    @GET("/shows/{series_id}/seasons")
+    suspend fun fetchSeriesSeason(
+        @Path("series_id") seriesId: Int
+    ): Response<List<SeasonRaw>>
 }
