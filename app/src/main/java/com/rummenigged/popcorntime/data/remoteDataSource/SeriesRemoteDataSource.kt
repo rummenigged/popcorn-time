@@ -12,4 +12,6 @@ interface SeriesRemoteDataSource {
    suspend fun fetchSeriesSeasons(seriesId: Int): List<SeasonRaw>
 
    suspend fun fetchSeasonEpisodes(seasonId: Int): List<EpisodeRaw>
+
+   suspend fun fetchEpisodeDetail(url: String): EpisodeRaw
 }

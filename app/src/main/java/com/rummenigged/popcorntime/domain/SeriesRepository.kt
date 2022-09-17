@@ -9,4 +9,6 @@ interface SeriesRepository {
     suspend fun getSeriesSeasons(seriesId: Int): List<Season>
 
     suspend fun getEpisodes(seasonId: Int): List<Episode>
+
+    suspend fun getEpisodeDetails(url:String): Episode
 }

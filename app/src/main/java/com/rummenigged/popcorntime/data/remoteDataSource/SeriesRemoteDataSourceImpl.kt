@@ -36,4 +36,10 @@ class SeriesRemoteDataSourceImpl @Inject constructor(
             is Outcome.Success -> outcome.value
             is Outcome.Failure -> throw NetworkException.parse(outcome.statusCode)
         }
+
+    override suspend fun fetchEpisodeDetail(url: String): EpisodeRaw =
+        when(val outcome = seriesApi.fetchEpisodeDetails(url).parseResponse()){
+            is Outcome.Success -> outcome.value
+            is Outcome.Failure -> throw NetworkException.parse(outcome.statusCode)
+        }
 }

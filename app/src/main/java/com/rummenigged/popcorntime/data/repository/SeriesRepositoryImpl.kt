@@ -30,4 +30,9 @@ class SeriesRepositoryImpl @Inject constructor(
         seriesRemoteDataSource.fetchSeasonEpisodes(seasonId).map {
             it.asSafe().asDomain()
         }
+
+    override suspend fun getEpisodeDetails(url: String): Episode =
+        seriesRemoteDataSource.fetchEpisodeDetail(url)
+            .asSafe()
+            .asDomain()
 }
