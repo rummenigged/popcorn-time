@@ -11,6 +11,7 @@ class SeriesRepositoryFake(
    private val seriesDetail: Series? = null,
    private val seasonSeriesList: List<Season> = emptyList(),
    private val episodesList: List<Episode> = emptyList(),
+   private val episodeDetails: Episode? = null,
    private val hasError: Boolean = false,
    private val errorCode: Int = 400,
    private val errorMessage: String = "",
@@ -41,6 +42,14 @@ class SeriesRepositoryFake(
             throw NetworkException.parse(errorCode, errorMessage)
         }else{
             episodesList
+        }
+
+    override suspend fun getEpisodeDetails(url: String): Episode =
+        if (hasError){
+            throw NetworkException.parse(errorCode, errorMessage)
+        }else{
+            episodeDetails ?: SeriesRemoteDataSourceFake.createEpisodeDetailFake(0)
+                .asSafe().asDomain()
         }
 
     companion object{
