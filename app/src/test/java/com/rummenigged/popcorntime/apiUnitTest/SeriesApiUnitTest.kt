@@ -21,6 +21,8 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 @ExperimentalCoroutinesApi
 class SeriesApiUnitTest {
 
+    private val seriesId = 1
+
     @Test
     fun `assert fetch series list success`() = runTest {
         val mockServer = MockWebServer()
@@ -72,5 +74,31 @@ class SeriesApiUnitTest {
         assert(request.method == "GET")
         assert(request.path == "/shows?page=$page")
         assert(result.body()?.size == 10)
+    }
+
+    @Test
+    fun `assert fetch series details success`() = runTest {
+        val mockServer = MockWebServer()
+        mockServer.start()
+
+        mockServer.enqueue(MockResponse().setBody(getRawResource("series_details.json")))
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl(mockServer.url(""))
+            .addConverterFactory(MoshiConverterFactory.create(
+                Moshi.Builder()
+                    .add(KotlinJsonAdapterFactory())
+                    .build()))
+            .build()
+
+        val service = retrofit.create(SeriesApi::class.java)
+        val result = service.fetchSeriesDetail(seriesId)
+
+        val request  = mockServer.takeRequest()
+        mockServer.shutdown()
+
+        assert(request.method == "GET")
+        assert(request.path == "/shows/$seriesId")
+        assert(result.body()?.id == seriesId)
     }
 }

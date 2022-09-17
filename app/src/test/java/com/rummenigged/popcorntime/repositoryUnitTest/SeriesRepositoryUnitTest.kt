@@ -14,12 +14,14 @@ class SeriesRepositoryUnitTest {
     private lateinit var seriesRepository: SeriesRepository
 
     private val listSize = 4
+    private val seriesId = 7
 
     @Before
     fun setup(){
         seriesRepository = SeriesRepositoryImpl(
             seriesRemoteDataSource = SeriesRemoteDataSourceFake(
-                seriesList = SeriesRemoteDataSourceFake.createSeriesListFakeList(listSize)
+                seriesList = SeriesRemoteDataSourceFake.createSeriesListFakeList(listSize),
+                SeriesRemoteDataSourceFake.getMockSeriesDetails(seriesId)
             )
         )
     }
@@ -32,9 +34,9 @@ class SeriesRepositoryUnitTest {
     }
 
     @Test
-    fun `assert get series list success without pass page parameter`() = runTest {
-        seriesRepository.getSeriesList().also { result ->
-            assert(result.size == listSize)
+    fun `assert get series details success `() = runTest {
+        seriesRepository.getSeriesDetail(seriesId).also { result ->
+            assert(result.id == seriesId)
         }
     }
 }
