@@ -1,6 +1,6 @@
 package com.rummenigged.popcorntime.data.model
 
-import com.rummenigged.popcorntime.data.common.Raw
+import com.rummenigged.popcorntime.data.common.Safe
 import com.rummenigged.popcorntime.domain.Episode
 
 data class EpisodeSafe(
@@ -14,7 +14,7 @@ data class EpisodeSafe(
     val rating: Rating,
     val image: Image,
     val summary: String
-): Raw<Episode> {
+): Safe<Episode> {
     data class Rating(
         val average: Double
     )
@@ -23,7 +23,7 @@ data class EpisodeSafe(
         val medium: String,
         val original: String
     )
-    override fun asSafe(): Episode =
+    override fun asDomain(): Episode =
         Episode(
             id = id,
             url = url,
