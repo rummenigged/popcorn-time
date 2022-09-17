@@ -10,8 +10,14 @@ import javax.inject.Inject
 class SeriesRemoteDataSourceImpl @Inject constructor(
     private val seriesApi: SeriesApi
 ): SeriesRemoteDataSource {
-    override suspend fun fetchSeriesList(page: Int?): List<SeriesRaw> =
+    override suspend fun fetchSeriesList(page: Int): List<SeriesRaw> =
         when(val outcome = seriesApi.fetchSeriesList(page).parseResponse()){
+            is Outcome.Success -> outcome.value
+            is Outcome.Failure -> throw NetworkException.parse(outcome.statusCode)
+        }
+
+    override suspend fun fetchSeriesDetails(seriesId: Int): SeriesRaw =
+        when(val outcome = seriesApi.fetchSeriesDetail(seriesId).parseResponse()){
             is Outcome.Success -> outcome.value
             is Outcome.Failure -> throw NetworkException.parse(outcome.statusCode)
         }
