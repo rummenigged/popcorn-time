@@ -28,7 +28,7 @@ class SeriesDetailsFragment : BaseFragment(R.layout.fragment_series_details) {
 
     private val args: SeriesDetailsFragmentArgs by navArgs()
 
-    private var currenEpisodesList: List<SeasonView> = emptyList()
+    private var currentEpisodesList: List<SeasonView> = emptyList()
 
     override fun setupView(savedInstanceState: Bundle?) {
         super.setupView(savedInstanceState)
@@ -39,7 +39,6 @@ class SeriesDetailsFragment : BaseFragment(R.layout.fragment_series_details) {
     override fun setupObservers() {
         observe(seriesDetailsViewModel.seriesDetailsUiState){ seriesDetails ->
             binding.apply {
-
                 seriesDetails.seriesDetails?.run{
                     acivSeriesDetailBanner.load(posterUrl)
                     mtvSeriesDetailName.text = name
@@ -49,7 +48,7 @@ class SeriesDetailsFragment : BaseFragment(R.layout.fragment_series_details) {
                 }
 
                 seriesDetails.seasonList?.let {
-                    currenEpisodesList = it
+                    currentEpisodesList = it
                     updateSeasonList( it.map { season -> season.name })
                 }
 
@@ -93,7 +92,7 @@ class SeriesDetailsFragment : BaseFragment(R.layout.fragment_series_details) {
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
                 try{
-                    currenEpisodesList[position].also {
+                    currentEpisodesList[position].also {
                         seriesDetailsViewModel.getEpisodes(it.id)
                     }
                 }catch (e: IndexOutOfBoundsException){}
@@ -119,6 +118,7 @@ class SeriesDetailsFragment : BaseFragment(R.layout.fragment_series_details) {
 
     private fun updateGenresList(gendersList: List<String>){
         binding.apply {
+            cgSeriesDetailGender.removeAllViewsInLayout()
             cgSeriesDetailGender.apply {
                 for (g in gendersList){
                     addView(
@@ -143,7 +143,9 @@ class SeriesDetailsFragment : BaseFragment(R.layout.fragment_series_details) {
             adapter = episodesAdapter.apply {
                 subscribeToItemSelection { _, position ->
                     getItem(position).also { item ->
-//                        navigateTo(SeriesListFragmentDirections.toSeriesDetailsFragment(item.id))
+                        navigateTo(SeriesDetailsFragmentDirections.toEpisodeDetailsFragment(
+                            item.link
+                        ))
                     }
                 }
             }

@@ -69,7 +69,8 @@ class SeriesDetailsViewModel @Inject constructor(
                         name = "${it.number}.${it.name}",
                         imageUrl = it.image.medium,
                         runtime = "${it.runtime}m",
-                        summary = it.summary
+                        summary = it.summary,
+                        link = it.link
                     )
                 }
 
