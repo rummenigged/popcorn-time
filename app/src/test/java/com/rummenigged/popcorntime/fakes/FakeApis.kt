@@ -9,10 +9,14 @@ class SeriesApiFake{
 
     companion object {
         fun createSuccessResponseApi(
-            seriesList: List<SeriesRaw>
+            seriesList: List<SeriesRaw>,
+            seriesDetail: SeriesRaw?
         ): SeriesApi = object : SeriesApi {
             override suspend fun fetchSeriesList(page: Int?): Response<List<SeriesRaw>> =
                 Response.success(seriesList)
+
+            override suspend fun fetchSeriesDetail(seriesId: Int): Response<SeriesRaw> =
+                Response.success(seriesDetail)
         }
 
         fun createErrorResponseApi(
@@ -20,6 +24,9 @@ class SeriesApiFake{
             errorMessage: String = ""
         ): SeriesApi = object : SeriesApi {
             override suspend fun fetchSeriesList(page: Int?): Response<List<SeriesRaw>> =
+                Response.error(errorCode, errorMessage.toResponseBody())
+
+            override suspend fun fetchSeriesDetail(seriesId: Int): Response<SeriesRaw> =
                 Response.error(errorCode, errorMessage.toResponseBody())
         }
 
