@@ -1,6 +1,7 @@
-package com.rummenigged.popcorntime.data.model
+package com.rummenigged.popcorntime.data.model.raw
 
 import com.rummenigged.popcorntime.data.common.Raw
+import com.rummenigged.popcorntime.data.model.safe.SeriesSearchResultSafe
 
 
 data class SeriesSearchResultRaw(

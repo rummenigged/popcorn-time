@@ -1,9 +1,9 @@
 package com.rummenigged.popcorntime.fakes
 
-import com.rummenigged.popcorntime.data.model.EpisodeRaw
-import com.rummenigged.popcorntime.data.model.SeasonRaw
+import com.rummenigged.popcorntime.data.model.raw.EpisodeRaw
+import com.rummenigged.popcorntime.data.model.raw.SeasonRaw
 import com.rummenigged.popcorntime.data.network.api.SeriesApi
-import com.rummenigged.popcorntime.data.model.SeriesRaw
+import com.rummenigged.popcorntime.data.model.raw.SeriesRaw
 import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.Response
 

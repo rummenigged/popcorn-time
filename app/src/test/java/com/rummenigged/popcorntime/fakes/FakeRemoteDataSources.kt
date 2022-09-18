@@ -1,9 +1,9 @@
 package com.rummenigged.popcorntime.fakes
 
-import com.rummenigged.popcorntime.data.model.EpisodeRaw
-import com.rummenigged.popcorntime.data.model.SeasonRaw
-import com.rummenigged.popcorntime.data.model.SeriesRaw
-import com.rummenigged.popcorntime.data.model.SeriesSearchResultRaw
+import com.rummenigged.popcorntime.data.model.raw.EpisodeRaw
+import com.rummenigged.popcorntime.data.model.raw.SeasonRaw
+import com.rummenigged.popcorntime.data.model.raw.SeriesRaw
+import com.rummenigged.popcorntime.data.model.raw.SeriesSearchResultRaw
 import com.rummenigged.popcorntime.data.remoteDataSource.SeriesRemoteDataSource
 
 class SeriesRemoteDataSourceFake(

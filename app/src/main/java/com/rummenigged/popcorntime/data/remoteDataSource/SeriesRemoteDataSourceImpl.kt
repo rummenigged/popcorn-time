@@ -2,13 +2,12 @@ package com.rummenigged.popcorntime.data.remoteDataSource
 
 import com.rummenigged.popcorntime.common.NetworkException
 import com.rummenigged.popcorntime.common.Outcome
-import com.rummenigged.popcorntime.data.model.EpisodeRaw
-import com.rummenigged.popcorntime.data.model.SeasonRaw
-import com.rummenigged.popcorntime.data.model.SeriesRaw
-import com.rummenigged.popcorntime.data.model.SeriesSearchResultRaw
+import com.rummenigged.popcorntime.data.model.raw.EpisodeRaw
+import com.rummenigged.popcorntime.data.model.raw.SeasonRaw
+import com.rummenigged.popcorntime.data.model.raw.SeriesRaw
+import com.rummenigged.popcorntime.data.model.raw.SeriesSearchResultRaw
 import com.rummenigged.popcorntime.data.network.api.SeriesApi
 import com.rummenigged.popcorntime.data.network.utils.parseResponse
-import retrofit2.Response
 import javax.inject.Inject
 
 class SeriesRemoteDataSourceImpl @Inject constructor(

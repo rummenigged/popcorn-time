@@ -1,9 +1,9 @@
 package com.rummenigged.popcorntime.data.remoteDataSource
 
-import com.rummenigged.popcorntime.data.model.EpisodeRaw
-import com.rummenigged.popcorntime.data.model.SeasonRaw
-import com.rummenigged.popcorntime.data.model.SeriesRaw
-import com.rummenigged.popcorntime.data.model.SeriesSearchResultRaw
+import com.rummenigged.popcorntime.data.model.raw.EpisodeRaw
+import com.rummenigged.popcorntime.data.model.raw.SeasonRaw
+import com.rummenigged.popcorntime.data.model.raw.SeriesRaw
+import com.rummenigged.popcorntime.data.model.raw.SeriesSearchResultRaw
 
 interface SeriesRemoteDataSource {
    suspend fun fetchSeriesList(page: Int = 0): List<SeriesRaw>

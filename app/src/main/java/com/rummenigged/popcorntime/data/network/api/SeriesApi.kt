@@ -1,10 +1,9 @@
 package com.rummenigged.popcorntime.data.network.api
 
-import com.rummenigged.popcorntime.data.model.EpisodeRaw
-import com.rummenigged.popcorntime.data.model.SeasonRaw
-import com.rummenigged.popcorntime.data.model.SeriesRaw
-import com.rummenigged.popcorntime.data.model.SeriesSearchResultRaw
-import com.rummenigged.popcorntime.domain.SeriesSearchResult
+import com.rummenigged.popcorntime.data.model.raw.EpisodeRaw
+import com.rummenigged.popcorntime.data.model.raw.SeasonRaw
+import com.rummenigged.popcorntime.data.model.raw.SeriesRaw
+import com.rummenigged.popcorntime.data.model.raw.SeriesSearchResultRaw
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
