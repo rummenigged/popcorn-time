@@ -1,4 +1,4 @@
-package com.rummenigged.popcorntime.view
+package com.rummenigged.popcorntime.view.episodeDetails
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs

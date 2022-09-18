@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/episodeDetailsFragment"
-        android:name="com.rummenigged.popcorntime.view.EpisodeDetailsFragment"
+        android:name="com.rummenigged.popcorntime.view.episodeDetails.EpisodeDetailsFragment"
         android:label="@string/episode_details_fragment_label" >
         <argument
             android:name="url"

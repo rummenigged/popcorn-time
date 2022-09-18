@@ -1,8 +1,10 @@
-package com.rummenigged.popcorntime.view
+package com.rummenigged.popcorntime.view.episodeDetails
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rummenigged.popcorntime.domain.repository.SeriesRepository
+import com.rummenigged.popcorntime.view.episodeDetails.model.EpisodeDetailsUiState
+import com.rummenigged.popcorntime.view.episodeDetails.model.EpisodeDetailsView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow

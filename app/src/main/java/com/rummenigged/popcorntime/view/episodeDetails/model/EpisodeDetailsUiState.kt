@@ -1,4 +1,4 @@
-package com.rummenigged.popcorntime.view
+package com.rummenigged.popcorntime.view.episodeDetails.model
 
 data class EpisodeDetailsUiState(
     val isLoading: Boolean = false,
