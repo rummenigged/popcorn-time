@@ -2,11 +2,10 @@ package com.rummenigged.popcorntime.view
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rummenigged.popcorntime.common.NetworkException
 import com.rummenigged.popcorntime.domain.SeriesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -56,7 +55,47 @@ class SeriesViewModel @Inject constructor(
 
                 }
             }.recoverCatching {
-                fireErrorState(true, it.message ?: "Unknown Error")
+                if (it !is CancellationException){
+                    fireErrorState(true, it.message ?: "Unknown Error")
+                }
+            }
+        }
+    }
+
+    fun searchSeries(query: String){
+        getSeriesListJob?.cancel()
+        fireLoadingState(true)
+        getSeriesListJob = viewModelScope.launch {
+            runCatching {
+                val seriesList = seriesRepository.searchSeries(query).map { series ->
+                    SeriesView(
+                        id = series.id,
+                        bannerUrl = series.imageUrl,
+                        name = series.name
+                    )
+                }
+
+                _seriesUiState.update {
+                    seriesList.let { list ->
+                        if (list.isEmpty()){
+                            it.copy(
+                                seriesList = null,
+                                isLoading = false,
+                                errorMessage = "There is no Tv Series Available"
+                            )
+                        }else{
+                            it.copy(
+                                seriesList = seriesList,
+                                isLoading = false,
+                            )
+                        }
+                    }
+
+                }
+            }.recoverCatching {
+                if (it !is CancellationException){
+                    fireErrorState(true, it.message ?: "Unknown Error")
+                }
             }
         }
     }
