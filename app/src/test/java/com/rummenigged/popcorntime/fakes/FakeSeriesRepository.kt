@@ -1,13 +1,11 @@
 package com.rummenigged.popcorntime.fakes
 
 import com.rummenigged.popcorntime.common.NetworkException
-import com.rummenigged.popcorntime.domain.Episode
-import com.rummenigged.popcorntime.domain.Season
-import com.rummenigged.popcorntime.domain.Series
-import com.rummenigged.popcorntime.domain.SeriesRepository
+import com.rummenigged.popcorntime.domain.*
 
 class SeriesRepositoryFake(
    private val seriesList: List<Series> = emptyList(),
+   private val seriesSearchList: List<SeriesSearchResult>? = null,
    private val seriesDetail: Series? = null,
    private val seasonSeriesList: List<Season> = emptyList(),
    private val episodesList: List<Episode> = emptyList(),
@@ -17,10 +15,16 @@ class SeriesRepositoryFake(
    private val errorMessage: String = "",
 ): SeriesRepository {
 
-    override suspend fun getSeriesList(page: Int?): List<Series> = if (hasError){
+    override suspend fun getSeriesList(page: Int): List<Series> = if (hasError){
         throw NetworkException.parse(errorCode, errorMessage)
     }else{
         seriesList
+    }
+
+    override suspend fun searchSeries(query: String): List<SeriesSearchResult> = if (hasError){
+        throw NetworkException.parse(errorCode, errorMessage)
+    }else{
+        seriesSearchList ?: emptyList()
     }
 
     override suspend fun getSeriesDetail(seriesId: Int): Series = if (hasError){

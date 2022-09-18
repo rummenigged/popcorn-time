@@ -5,6 +5,7 @@ import com.rummenigged.popcorntime.common.Outcome
 import com.rummenigged.popcorntime.data.model.EpisodeRaw
 import com.rummenigged.popcorntime.data.model.SeasonRaw
 import com.rummenigged.popcorntime.data.model.SeriesRaw
+import com.rummenigged.popcorntime.data.model.SeriesSearchResultRaw
 import com.rummenigged.popcorntime.data.network.api.SeriesApi
 import com.rummenigged.popcorntime.data.network.utils.parseResponse
 import retrofit2.Response
@@ -15,6 +16,12 @@ class SeriesRemoteDataSourceImpl @Inject constructor(
 ): SeriesRemoteDataSource {
     override suspend fun fetchSeriesList(page: Int): List<SeriesRaw> =
         when(val outcome = seriesApi.fetchSeriesList(page).parseResponse()){
+            is Outcome.Success -> outcome.value
+            is Outcome.Failure -> throw NetworkException.parse(outcome.statusCode)
+        }
+
+    override suspend fun searchSeriesList(query: String): List<SeriesSearchResultRaw> =
+        when(val outcome = seriesApi.searchSeriesList(query).parseResponse()){
             is Outcome.Success -> outcome.value
             is Outcome.Failure -> throw NetworkException.parse(outcome.statusCode)
         }

@@ -3,6 +3,8 @@ package com.rummenigged.popcorntime.data.network.api
 import com.rummenigged.popcorntime.data.model.EpisodeRaw
 import com.rummenigged.popcorntime.data.model.SeasonRaw
 import com.rummenigged.popcorntime.data.model.SeriesRaw
+import com.rummenigged.popcorntime.data.model.SeriesSearchResultRaw
+import com.rummenigged.popcorntime.domain.SeriesSearchResult
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -13,8 +15,13 @@ interface SeriesApi {
 
     @GET("/shows")
     suspend fun fetchSeriesList(
-        @Query("page") page: Int? = null
+        @Query("page") page: Int
     ): Response<List<SeriesRaw>>
+
+    @GET("search/shows")
+    suspend fun searchSeriesList(
+        @Query("q") query: String
+    ): Response<List<SeriesSearchResultRaw>>
 
     @GET("/shows/{series_id}")
     suspend fun fetchSeriesDetail(

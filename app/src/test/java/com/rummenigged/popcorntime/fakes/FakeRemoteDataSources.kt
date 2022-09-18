@@ -3,10 +3,12 @@ package com.rummenigged.popcorntime.fakes
 import com.rummenigged.popcorntime.data.model.EpisodeRaw
 import com.rummenigged.popcorntime.data.model.SeasonRaw
 import com.rummenigged.popcorntime.data.model.SeriesRaw
+import com.rummenigged.popcorntime.data.model.SeriesSearchResultRaw
 import com.rummenigged.popcorntime.data.remoteDataSource.SeriesRemoteDataSource
 
 class SeriesRemoteDataSourceFake(
     private val seriesList: List<SeriesRaw>?,
+    private val seriesSearchResultList: List<SeriesSearchResultRaw>? = null,
     private val seriesDetail: SeriesRaw? = null,
     private val seasonList: List<SeasonRaw>? = null,
     private val episodesList: List<EpisodeRaw>? = null,
@@ -15,6 +17,9 @@ class SeriesRemoteDataSourceFake(
 
     override suspend fun fetchSeriesList(page: Int): List<SeriesRaw> =
         seriesList ?: emptyList()
+
+    override suspend fun searchSeriesList(query: String): List<SeriesSearchResultRaw> =
+        seriesSearchResultList ?: emptyList()
 
     override suspend fun fetchSeriesDetails(seriesId: Int): SeriesRaw =
         seriesDetail ?: getMockSeriesDetails(0)

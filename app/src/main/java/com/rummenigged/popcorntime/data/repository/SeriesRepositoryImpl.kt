@@ -1,18 +1,20 @@
 package com.rummenigged.popcorntime.data.repository
 
 import com.rummenigged.popcorntime.data.remoteDataSource.SeriesRemoteDataSource
-import com.rummenigged.popcorntime.domain.Episode
-import com.rummenigged.popcorntime.domain.Season
-import com.rummenigged.popcorntime.domain.Series
-import com.rummenigged.popcorntime.domain.SeriesRepository
+import com.rummenigged.popcorntime.domain.*
 import javax.inject.Inject
 
 class SeriesRepositoryImpl @Inject constructor(
     private val seriesRemoteDataSource: SeriesRemoteDataSource
 ): SeriesRepository {
 
-    override suspend fun getSeriesList(page: Int?): List<Series> =
+    override suspend fun getSeriesList(page: Int): List<Series> =
         seriesRemoteDataSource.fetchSeriesList(page ?: 0).map { series ->
+            series.asSafe().asDomain()
+        }
+
+    override suspend fun searchSeries(query: String): List<SeriesSearchResult> =
+        seriesRemoteDataSource.searchSeriesList(query).map { series ->
             series.asSafe().asDomain()
         }
 

@@ -2,7 +2,9 @@ package com.rummenigged.popcorntime.domain
 
 interface SeriesRepository {
 
-    suspend fun getSeriesList(page: Int? = null): List<Series>
+    suspend fun getSeriesList(page: Int): List<Series>
+
+    suspend fun searchSeries(query: String): List<SeriesSearchResult>
 
     suspend fun getSeriesDetail(seriesId: Int): Series
 
