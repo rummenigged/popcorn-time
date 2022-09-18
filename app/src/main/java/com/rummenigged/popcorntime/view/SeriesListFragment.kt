@@ -1,6 +1,7 @@
 package com.rummenigged.popcorntime.view
 
 import android.os.Bundle
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.rummenigged.popcorntime.R
@@ -15,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SeriesListFragment : BaseFragment(R.layout.fragment_series_list) {
+class SeriesListFragment : BaseFragment(R.layout.fragment_series_list), SearchView.OnQueryTextListener {
 
     private val binding by viewBinding(FragmentSeriesListBinding::bind)
 
@@ -25,13 +26,22 @@ class SeriesListFragment : BaseFragment(R.layout.fragment_series_list) {
 
     override fun setupView(savedInstanceState: Bundle?) {
         super.setupView(savedInstanceState)
+        binding.svSeries.setOnQueryTextListener(this)
         setupRecyclerView()
     }
 
     override fun setupObservers() {
         observe(seriesViewModel.seriesUiState){
             binding.apply {
-                pbSeriesList.apply { if (it.isLoading) visible() else gone() }
+                pbSeriesList.apply {
+                    if (it.isLoading){
+                        visible()
+                        rvSeries.gone()
+                    } else{
+                        gone()
+                        rvSeries.visible()
+                    }
+                }
 
                 it.errorMessage?.let {
                     mtvErrorSeriesList.text = it
@@ -60,5 +70,19 @@ class SeriesListFragment : BaseFragment(R.layout.fragment_series_list) {
                 }
             }
         }
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean =
+        seriesViewModel.searchSeries(query.orEmpty()).let {
+            true
+        }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        if ((newText?.length ?: 0) > 2){
+            seriesViewModel.searchSeries(newText.orEmpty())
+        }else if (newText.isNullOrEmpty()){
+            seriesViewModel.getSeriesList()
+        }
+        return true
     }
 }
