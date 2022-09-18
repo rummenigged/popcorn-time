@@ -6,6 +6,7 @@ import com.rummenigged.popcorntime.domain.repository.SeriesRepository
 import com.rummenigged.popcorntime.view.episodeDetails.model.EpisodeDetailsUiState
 import com.rummenigged.popcorntime.view.episodeDetails.model.EpisodeDetailsView
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -47,7 +48,9 @@ class EpisodeDetailsViewModel @Inject constructor(
 
                 }
             }.recoverCatching {
-                fireErrorState(true, it.message ?: "Unknown Error")
+                if (it !is CancellationException){
+                    fireErrorState(true, it.message ?: "Unknown Error")
+                }
             }
         }
     }
