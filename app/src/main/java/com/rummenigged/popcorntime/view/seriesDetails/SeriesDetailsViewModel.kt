@@ -1,9 +1,14 @@
-package com.rummenigged.popcorntime.view
+package com.rummenigged.popcorntime.view.seriesDetails
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rummenigged.popcorntime.domain.SeriesRepository
+import com.rummenigged.popcorntime.domain.repository.SeriesRepository
+import com.rummenigged.popcorntime.view.seriesDetails.episodes.model.EpisodeView
+import com.rummenigged.popcorntime.view.seriesDetails.model.SeriesDetailsUiState
+import com.rummenigged.popcorntime.view.seriesDetails.model.SeriesDetailsView
+import com.rummenigged.popcorntime.view.seriesDetails.season.SeasonView
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -52,7 +57,9 @@ class SeriesDetailsViewModel @Inject constructor(
                     )
                 }
             }.recoverCatching {
-                fireErrorState(true, it.message ?: "Unknown Error")
+                if (it !is CancellationException){
+                    fireErrorState(true, it.message ?: "Unknown Error")
+                }
             }
         }
     }
@@ -69,7 +76,8 @@ class SeriesDetailsViewModel @Inject constructor(
                         name = "${it.number}.${it.name}",
                         imageUrl = it.image.medium,
                         runtime = "${it.runtime}m",
-                        summary = it.summary
+                        summary = it.summary,
+                        link = it.link
                     )
                 }
 
@@ -80,7 +88,9 @@ class SeriesDetailsViewModel @Inject constructor(
                     )
                 }
             }.recoverCatching {
-                fireErrorEpisodeState(true, it.message ?: "Unknown Error")
+                if (it !is CancellationException){
+                    fireErrorState(true, it.message ?: "Unknown Error")
+                }
             }
         }
     }
@@ -105,7 +115,9 @@ class SeriesDetailsViewModel @Inject constructor(
                     )
                 }
             }.recoverCatching {
-                fireErrorState(true, it.message ?: "Unknown Error")
+                if (it !is CancellationException){
+                    fireErrorState(true, it.message ?: "Unknown Error")
+                }
             }
         }
     }
@@ -136,23 +148,6 @@ class SeriesDetailsViewModel @Inject constructor(
                 it.copy(
                     isLoading = false,
                     errorMessage = errorMessage,
-                    seriesDetails = null,
-                    seasonList = null,
-                    episodesList = null)
-            }
-        }else{
-            _seriesDetailsUiState.update {
-                it.copy(errorMessage = "")
-            }
-        }
-    }
-
-    private fun fireErrorEpisodeState(hasError: Boolean, errorMessage: String){
-        if (hasError){
-            _seriesDetailsUiState.update {
-                it.copy(
-                    isLoading = false,
-                    errorEpisodeList = errorMessage,
                     seriesDetails = null,
                     seasonList = null,
                     episodesList = null)

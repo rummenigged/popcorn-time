@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/SeriesListFragment"
-        android:name="com.rummenigged.popcorntime.view.SeriesListFragment"
+        android:name="com.rummenigged.popcorntime.view.seriesList.SeriesListFragment"
         android:label="@string/series_list_fragment_label"
         tools:layout="@layout/fragment_series_list">
 
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/SeriesDetailsFragment"
-        android:name="com.rummenigged.popcorntime.view.SeriesDetailsFragment"
+        android:name="com.rummenigged.popcorntime.view.seriesDetails.SeriesDetailsFragment"
         android:label="@string/series_details_fragment_label"
         tools:layout="@layout/fragment_series_details">
 
@@ -25,5 +25,16 @@
             android:name="seriesId"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/to_episodeDetailsFragment"
+            app:destination="@id/episodeDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/episodeDetailsFragment"
+        android:name="com.rummenigged.popcorntime.view.episodeDetails.EpisodeDetailsFragment"
+        android:label="@string/episode_details_fragment_label" >
+        <argument
+            android:name="url"
+            app:argType="string" />
     </fragment>
 </navigation>

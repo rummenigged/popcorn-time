@@ -1,19 +1,25 @@
 package com.rummenigged.popcorntime.fakes
 
-import com.rummenigged.popcorntime.data.model.EpisodeRaw
-import com.rummenigged.popcorntime.data.model.SeasonRaw
-import com.rummenigged.popcorntime.data.model.SeriesRaw
+import com.rummenigged.popcorntime.data.model.raw.EpisodeRaw
+import com.rummenigged.popcorntime.data.model.raw.SeasonRaw
+import com.rummenigged.popcorntime.data.model.raw.SeriesRaw
+import com.rummenigged.popcorntime.data.model.raw.SeriesSearchResultRaw
 import com.rummenigged.popcorntime.data.remoteDataSource.SeriesRemoteDataSource
 
 class SeriesRemoteDataSourceFake(
     private val seriesList: List<SeriesRaw>?,
+    private val seriesSearchResultList: List<SeriesSearchResultRaw>? = null,
     private val seriesDetail: SeriesRaw? = null,
     private val seasonList: List<SeasonRaw>? = null,
     private val episodesList: List<EpisodeRaw>? = null,
+    private val episodesDetails: EpisodeRaw? = null,
 ): SeriesRemoteDataSource{
 
     override suspend fun fetchSeriesList(page: Int): List<SeriesRaw> =
         seriesList ?: emptyList()
+
+    override suspend fun searchSeriesList(query: String): List<SeriesSearchResultRaw> =
+        seriesSearchResultList ?: emptyList()
 
     override suspend fun fetchSeriesDetails(seriesId: Int): SeriesRaw =
         seriesDetail ?: getMockSeriesDetails(0)
@@ -23,6 +29,9 @@ class SeriesRemoteDataSourceFake(
 
     override suspend fun fetchSeasonEpisodes(seasonId: Int): List<EpisodeRaw> =
         episodesList ?: createSeasonEpisodesListFakeList(0)
+
+    override suspend fun fetchEpisodeDetail(url: String): EpisodeRaw =
+        episodesDetails ?: createEpisodeDetailFake(0)
 
     companion object {
 
@@ -184,6 +193,26 @@ class SeriesRemoteDataSourceFake(
             return seriesList
         }
 
+        fun createEpisodeDetailFake(id: Int): EpisodeRaw =
+            EpisodeRaw(
+                id = id,
+                url = "url_$id",
+                name = "Name $id",
+                season = id,
+                number = 1,
+                airDate = "",
+                runtime = id,
+                rating = EpisodeRaw.Rating(id.toDouble()),
+                image = EpisodeRaw.Image(
+                    medium = "",
+                    original = ""
+                ),
+                summary = "Summary $id",
+                link = EpisodeRaw.Link(
+                    EpisodeRaw.Link.Self("")
+                )
+            )
+
         fun createSeasonEpisodesListFakeList(amount: Int): List<EpisodeRaw> {
             val seriesList = arrayListOf<EpisodeRaw>()
             for (i in 0 until amount) {
@@ -201,7 +230,10 @@ class SeriesRemoteDataSourceFake(
                             medium = "",
                             original = ""
                         ),
-                        summary = "Summary $i"
+                        summary = "Summary $i",
+                        link = EpisodeRaw.Link(
+                            EpisodeRaw.Link.Self("")
+                        )
                     )
                 )
             }

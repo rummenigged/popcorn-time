@@ -4,10 +4,12 @@
     <!-- Strings used for fragments for navigation -->
     <string name="series_list_fragment_label">Series</string>
     <string name="series_details_fragment_label">Details</string>
+    <string name="episode_details_fragment_label">Episode Details</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="empty_series_list_text">There are no Tv Series available</string>
+    <string name="search_series_hint">Arrow</string>
 </resources>

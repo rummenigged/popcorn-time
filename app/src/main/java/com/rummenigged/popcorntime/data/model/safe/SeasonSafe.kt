@@ -1,7 +1,7 @@
-package com.rummenigged.popcorntime.data.model
+package com.rummenigged.popcorntime.data.model.safe
 
 import com.rummenigged.popcorntime.data.common.Safe
-import com.rummenigged.popcorntime.domain.Season
+import com.rummenigged.popcorntime.domain.model.Season
 
 data class SeasonSafe(
     val id: Int,

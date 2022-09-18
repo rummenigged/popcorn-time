@@ -1,4 +1,4 @@
-package com.rummenigged.popcorntime.view
+package com.rummenigged.popcorntime.view.seriesDetails.season
 
 data class SeasonView(
     val id: Int,
