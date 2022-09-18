@@ -1,4 +1,4 @@
-package com.rummenigged.popcorntime.view
+package com.rummenigged.popcorntime.view.seriesDetails.episodes.model
 
 data class EpisodeView(
     val id: Int,

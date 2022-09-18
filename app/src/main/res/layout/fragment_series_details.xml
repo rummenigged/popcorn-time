@@ -8,7 +8,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".view.SeriesDetailsFragment">
+        tools:context=".view.seriesDetails.SeriesDetailsFragment">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/acivSeriesDetailBanner"
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/screen_default_padding"
             app:layout_constraintTop_toBottomOf="@id/acivSeriesDetailBanner"
-            tools:context=".view.SeriesDetailsFragment">
+            tools:context=".view.seriesDetails.SeriesDetailsFragment">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/mtvSeriesDetailSummary"

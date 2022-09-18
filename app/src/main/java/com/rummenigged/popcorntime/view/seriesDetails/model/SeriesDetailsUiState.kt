@@ -1,4 +1,7 @@
-package com.rummenigged.popcorntime.view
+package com.rummenigged.popcorntime.view.seriesDetails.model
+
+import com.rummenigged.popcorntime.view.seriesDetails.episodes.model.EpisodeView
+import com.rummenigged.popcorntime.view.seriesDetails.season.SeasonView
 
 data class SeriesDetailsUiState(
     val isLoading: Boolean = false,

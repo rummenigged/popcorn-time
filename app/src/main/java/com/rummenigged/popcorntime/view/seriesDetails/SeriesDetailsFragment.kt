@@ -1,4 +1,4 @@
-package com.rummenigged.popcorntime.view
+package com.rummenigged.popcorntime.view.seriesDetails
 
 import android.os.Bundle
 import android.view.View
@@ -12,6 +12,9 @@ import com.rummenigged.popcorntime.R
 import com.rummenigged.popcorntime.databinding.FragmentSeriesDetailsBinding
 import com.rummenigged.popcorntime.view.common.BaseFragment
 import com.rummenigged.popcorntime.view.common.viewBinding
+import com.rummenigged.popcorntime.view.seriesDetails.episodes.adapter.EpisodesAdapter
+import com.rummenigged.popcorntime.view.seriesDetails.model.SeriesDetailsView
+import com.rummenigged.popcorntime.view.seriesDetails.season.SeasonView
 import com.rummenigged.popcorntime.view.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

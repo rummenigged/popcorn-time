@@ -3,7 +3,7 @@ package com.rummenigged.popcorntime.viewModelUnitTest
 import app.cash.turbine.test
 import com.rummenigged.popcorntime.fakes.SeriesRemoteDataSourceFake
 import com.rummenigged.popcorntime.fakes.SeriesRepositoryFake
-import com.rummenigged.popcorntime.view.SeriesDetailsViewModel
+import com.rummenigged.popcorntime.view.seriesDetails.SeriesDetailsViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
