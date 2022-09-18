@@ -1,7 +1,11 @@
 package com.rummenigged.popcorntime.data.repository
 
 import com.rummenigged.popcorntime.data.remoteDataSource.SeriesRemoteDataSource
-import com.rummenigged.popcorntime.domain.*
+import com.rummenigged.popcorntime.domain.model.Episode
+import com.rummenigged.popcorntime.domain.model.Season
+import com.rummenigged.popcorntime.domain.model.Series
+import com.rummenigged.popcorntime.domain.model.SeriesSearchResult
+import com.rummenigged.popcorntime.domain.repository.SeriesRepository
 import javax.inject.Inject
 
 class SeriesRepositoryImpl @Inject constructor(

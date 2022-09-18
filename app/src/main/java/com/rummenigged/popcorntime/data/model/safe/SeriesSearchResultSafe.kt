@@ -1,7 +1,7 @@
 package com.rummenigged.popcorntime.data.model.safe
 
 import com.rummenigged.popcorntime.data.common.Safe
-import com.rummenigged.popcorntime.domain.SeriesSearchResult
+import com.rummenigged.popcorntime.domain.model.SeriesSearchResult
 
 data class SeriesSearchResultSafe(
     val id: Int,

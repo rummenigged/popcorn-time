@@ -1,7 +1,7 @@
 package com.rummenigged.popcorntime.di.repository
 
 import com.rummenigged.popcorntime.data.repository.SeriesRepositoryImpl
-import com.rummenigged.popcorntime.domain.SeriesRepository
+import com.rummenigged.popcorntime.domain.repository.SeriesRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

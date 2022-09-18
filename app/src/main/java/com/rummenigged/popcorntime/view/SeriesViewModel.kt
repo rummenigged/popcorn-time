@@ -2,7 +2,7 @@ package com.rummenigged.popcorntime.view
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rummenigged.popcorntime.domain.SeriesRepository
+import com.rummenigged.popcorntime.domain.repository.SeriesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job

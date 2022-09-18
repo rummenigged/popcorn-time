@@ -1,4 +1,4 @@
-package com.rummenigged.popcorntime.domain
+package com.rummenigged.popcorntime.domain.model
 
 data class Series(
     val id: Int,

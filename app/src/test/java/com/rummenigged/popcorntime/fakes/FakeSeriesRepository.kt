@@ -1,18 +1,22 @@
 package com.rummenigged.popcorntime.fakes
 
 import com.rummenigged.popcorntime.common.NetworkException
-import com.rummenigged.popcorntime.domain.*
+import com.rummenigged.popcorntime.domain.model.Episode
+import com.rummenigged.popcorntime.domain.model.Season
+import com.rummenigged.popcorntime.domain.model.Series
+import com.rummenigged.popcorntime.domain.model.SeriesSearchResult
+import com.rummenigged.popcorntime.domain.repository.SeriesRepository
 
 class SeriesRepositoryFake(
-   private val seriesList: List<Series> = emptyList(),
-   private val seriesSearchList: List<SeriesSearchResult>? = null,
-   private val seriesDetail: Series? = null,
-   private val seasonSeriesList: List<Season> = emptyList(),
-   private val episodesList: List<Episode> = emptyList(),
-   private val episodeDetails: Episode? = null,
-   private val hasError: Boolean = false,
-   private val errorCode: Int = 400,
-   private val errorMessage: String = "",
+    private val seriesList: List<Series> = emptyList(),
+    private val seriesSearchList: List<SeriesSearchResult>? = null,
+    private val seriesDetail: Series? = null,
+    private val seasonSeriesList: List<Season> = emptyList(),
+    private val episodesList: List<Episode> = emptyList(),
+    private val episodeDetails: Episode? = null,
+    private val hasError: Boolean = false,
+    private val errorCode: Int = 400,
+    private val errorMessage: String = "",
 ): SeriesRepository {
 
     override suspend fun getSeriesList(page: Int): List<Series> = if (hasError){

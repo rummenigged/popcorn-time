@@ -1,9 +1,8 @@
 package com.rummenigged.popcorntime.repositoryUnitTest
 
 import com.rummenigged.popcorntime.data.repository.SeriesRepositoryImpl
-import com.rummenigged.popcorntime.domain.SeriesRepository
+import com.rummenigged.popcorntime.domain.repository.SeriesRepository
 import com.rummenigged.popcorntime.fakes.SeriesRemoteDataSourceFake
-import com.rummenigged.popcorntime.fakes.SeriesRepositoryFake
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Before

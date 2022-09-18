@@ -1,4 +1,9 @@
-package com.rummenigged.popcorntime.domain
+package com.rummenigged.popcorntime.domain.repository
+
+import com.rummenigged.popcorntime.domain.model.Episode
+import com.rummenigged.popcorntime.domain.model.Season
+import com.rummenigged.popcorntime.domain.model.Series
+import com.rummenigged.popcorntime.domain.model.SeriesSearchResult
 
 interface SeriesRepository {
 
