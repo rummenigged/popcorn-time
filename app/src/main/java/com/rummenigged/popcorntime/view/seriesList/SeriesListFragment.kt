@@ -1,4 +1,4 @@
-package com.rummenigged.popcorntime.view
+package com.rummenigged.popcorntime.view.seriesList
 
 import android.os.Bundle
 import androidx.appcompat.widget.SearchView

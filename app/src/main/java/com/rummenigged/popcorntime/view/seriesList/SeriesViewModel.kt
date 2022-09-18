@@ -1,4 +1,4 @@
-package com.rummenigged.popcorntime.view
+package com.rummenigged.popcorntime.view.seriesList
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
