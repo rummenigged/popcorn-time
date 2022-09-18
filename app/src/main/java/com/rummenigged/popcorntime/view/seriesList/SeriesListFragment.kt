@@ -8,6 +8,7 @@ import com.rummenigged.popcorntime.R
 import com.rummenigged.popcorntime.databinding.FragmentSeriesListBinding
 import com.rummenigged.popcorntime.view.common.BaseFragment
 import com.rummenigged.popcorntime.view.common.viewBinding
+import com.rummenigged.popcorntime.view.seriesList.adapter.SeriesAdapter
 import com.rummenigged.popcorntime.view.utils.gone
 import com.rummenigged.popcorntime.view.utils.navigateTo
 import com.rummenigged.popcorntime.view.utils.observe

@@ -1,10 +1,11 @@
-package com.rummenigged.popcorntime.view.seriesList
+package com.rummenigged.popcorntime.view.seriesList.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.rummenigged.popcorntime.R
 import com.rummenigged.popcorntime.databinding.ItemSeriesBinding
 import com.rummenigged.popcorntime.view.common.DiffUtilBaseAdapter
+import com.rummenigged.popcorntime.view.seriesList.model.SeriesView
 import com.rummenigged.popcorntime.view.utils.load
 import javax.inject.Inject
 

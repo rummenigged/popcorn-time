@@ -3,6 +3,8 @@ package com.rummenigged.popcorntime.view.seriesList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rummenigged.popcorntime.domain.repository.SeriesRepository
+import com.rummenigged.popcorntime.view.seriesList.model.SeriesUiState
+import com.rummenigged.popcorntime.view.seriesList.model.SeriesView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job

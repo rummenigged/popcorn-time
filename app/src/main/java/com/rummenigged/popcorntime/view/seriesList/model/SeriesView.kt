@@ -1,4 +1,4 @@
-package com.rummenigged.popcorntime.view.seriesList
+package com.rummenigged.popcorntime.view.seriesList.model
 
 import com.rummenigged.popcorntime.view.common.DiffUtilItemList
 
