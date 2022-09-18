@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.seriesDetails.SeriesDetailsFragment">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/acivEpisodeDetailBanner"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="@dimen/smallest_margin"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.4"
+        tools:srcCompat="@mipmap/ic_launcher" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mtvEpisodeDetailName"
+        style="@style/TextAppearance.Material3.TitleLarge"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/small_margin"
+        android:layout_marginTop="@dimen/large_margin"
+        android:layout_marginEnd="@dimen/small_margin"
+        android:ellipsize="end"
+        android:maxLines="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/acivEpisodeDetailBanner"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Test Name" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mtvEpisodeDetailSeason"
+        style="@style/TextAppearance.Material3.BodyMedium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/small_margin"
+        android:layout_marginTop="@dimen/smallest_margin"
+        android:layout_marginEnd="@dimen/small_margin"
+        android:ellipsize="end"
+        android:maxLines="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/acivEpisodeDetailBanner"
+        app:layout_constraintTop_toBottomOf="@id/mtvEpisodeDetailName"
+        tools:text="Exhibited monday and Thursdays at 10pm" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mtvEpisodeDetailSummary"
+        style="@style/TextAppearance.Material3.BodyLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_margin"
+        android:padding="@dimen/screen_default_padding"
+        app:layout_constraintTop_toBottomOf="@id/acivEpisodeDetailBanner" />
+
+    <ProgressBar
+        android:id="@+id/pbEpisodeDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

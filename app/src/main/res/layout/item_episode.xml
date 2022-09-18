@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:layout_marginBottom="@dimen/large_margin"
+    app:cardElevation="@dimen/large_elevation"
+    app:cardBackgroundColor="@color/background">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivSeriesBanner"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.4"
+            android:layout_height="match_parent"
+            app:srcCompat="@mipmap/ic_launcher"
+            android:scaleType="fitXY"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/mtvEpisodeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_marginStart="@dimen/small_margin"
+            tools:text="Game Of Thrones"
+            style="@style/TextAppearance.Material3.TitleMedium"
+            android:textColor="@color/onBackground"
+            app:layout_constraintStart_toEndOf="@id/ivSeriesBanner"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/mtvEpisodeRuntime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/smallest_margin"
+            android:layout_marginStart="@dimen/small_margin"
+            tools:text="39m"
+            style="@style/TextAppearance.Material3.LabelSmall"
+            android:textColor="@color/onBackground"
+            app:layout_constraintStart_toEndOf="@id/ivSeriesBanner"
+            app:layout_constraintTop_toBottomOf="@id/mtvEpisodeName"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/mtvEpisodeSummary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_marginStart="@dimen/small_margin"
+            tools:text="ajdjakedabjdabdakdjabd ajdjakedabjdabdakdjabd ajdjakedabjdabdakdjabd ajdjakedabjdabdakdjabd ajdjakedabjdabdakdjabd ajdjakedabjdabdakdjabd ajdjakedabjdabdakdjabd ajdjakedabjdabdakdjabd ajdjakedabjdabdakdjabd ajdjakedabjdabdakdjabd "
+            style="@style/TextAppearance.Material3.BodySmall"
+            android:textColor="@color/onBackground"
+            app:layout_constraintTop_toBottomOf="@id/mtvEpisodeRuntime"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivSeriesBanner"
+            android:ellipsize="end"
+            android:maxLines="3"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
